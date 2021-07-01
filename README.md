@@ -50,6 +50,7 @@ Date: December 19, 2001
     - [Chapter 4: Conclusions and Future Exploration](#chapter-4-conclusions-and-future-exploration)
       - [4.1 Results of Numerical Study](#41-results-of-numerical-study)
         - [4.3.1 Comparison of Fixed-Point and Interval Roots](#431-comparison-of-fixed-point-and-interval-roots)
+        - [4.2.3 Applications to Foraging Model](#423-applications-to-foraging-model)
       - [4.2 Future Exploration](#42-future-exploration)
     - [Bibliography](#bibliography)
 
@@ -73,9 +74,11 @@ sup(x) -- denotes the supremum or upper bound of **x**
 
 There are a several useful quantities related to the concept of the interval: size, radius, and midpoint. The size (or thickness) of an interval indicates the uncertainty in a value and is specified as a width: w(**x**) = sup**(x) -** inf(**x**) (Schwartz 32-33). Intervals with zero thickness are crisp intervals whereas non-crisp intervals said to be thick. The concepts of radius and midpoint are useful in describing intervals as well as constructing them. The radius and midpoint are defined as (Schwartz 33):
 
-rad(**x**) = w(**x**)/2
+```txt
+rad(x) = w(x)/2
 
-mid(**x**) = (sup(**x**) + inf(**x**))/2
+mid(x) = (sup(x) + inf(x))/2
+```
 
 To construct a new interval, one way is to use an original value, which is a value that supplies the midpoint point of a new interval. Then, a certain radius (uncertainty) can be added to and subtracted from the original value to obtain a new interval (Schwartz 35). Similarly, the midpoint can also serve as an approximation to a value with an error of plus or minus the radius. Using these definitions, the percentage uncertainty in a midpoint value would be: p = 100*rad(**x**)/mid(**x**) (Schwartz 148).
 
@@ -213,7 +216,7 @@ For details of the math and convergence properties of the algorithm, refer to Ku
 
 ![](media/clip_image038.png)
 
-where the **x**'s are intervals, m(**x**) is the midpoint of a the interval **x,** and f is the function whose root we seek (Kulisch et al. 35-36). The similarity of this algorithm to the fixed-point Newton method is that a starting interval must be supplied and the interval size is decreased using a f(**x**)/f'(**x**) term during iterations. This algorithm is almost as simple as the bisection method since an easy convergence criterion has been specified; however, the interval Newton requires implementation of rootfunc'(t) and requires ![](media/clip_image040.png) for an evaluated interval **x**. Through computational trials, I have decided to increase the complexity of the function evaluations for the f(**x**)/f'(**x**) by computing its united extension instead of a interval extension. Since both f(**x**) and f'(**x**) involve many interval arithmetic calculations in an interval extension, the values are over expanded from their true solution set and in computing optimal residence times we are interested in finding tight bounds on the root given model uncertainties. As a result, the interval Newton step is calculated by finding the minimums and maximums of f(**x**) and f'(**x**) given all the combinations of the endpoints of the parameters and the time interval and producing united extension values for both quantities.
+where the **x**'s are intervals, m(**x**) is the midpoint of a the interval **x,** and f is the function whose root we seek (Kulisch et al. 35-36). The similarity of this algorithm to the fixed-point Newton method is that a starting interval must be supplied and the interval size is decreased using a f(**x**)/f'(**x**) term during iterations. This algorithm is almost as simple as the bisection method since an easy convergence criterion has been specified; however, the interval Newton requires implementation of rootfunc'(t) and requires ![root function of x](media/clip_image040.png) for an evaluated interval **x**. Through computational trials, I have decided to increase the complexity of the function evaluations for the f(**x**)/f'(**x**) by computing its united extension instead of a interval extension. Since both f(**x**) and f'(**x**) involve many interval arithmetic calculations in an interval extension, the values are over expanded from their true solution set and in computing optimal residence times we are interested in finding tight bounds on the root given model uncertainties. As a result, the interval Newton step is calculated by finding the minimums and maximums of f(**x**) and f'(**x**) given all the combinations of the endpoints of the parameters and the time interval and producing united extension values for both quantities.
 
 ###### 2.2.2.3 Variation and Constraints on Parameters
 
@@ -951,6 +954,7 @@ disp(sprintf('with percentage uncertainty: %3.0f',p));
 
 The results for the 4 parameters are:
 
+```txt
 Model Failure at N = 5
 
 For parameter alpha with value [0.0280000, 0.0720000]
@@ -968,6 +972,7 @@ Model Failure at N = 5
 For parameter xt with value [0.0440000, 0.1560000]
 
 with percentage uncertainty: 56
+```
 
 I was not able to find a percent uncertainty for xm that caused the model to fail even using different starting p values and small increments. However, the other parameters yielded failures at quite high percentages.
 
@@ -979,7 +984,7 @@ I was not able to find a percent uncertainty for xm that caused the model to fai
 
 The values obtained from both optimization methods corresponded well since there was only O(10^-6) error between the results. This error bound was derived from the error between the fixed-point roots and the endpoints of the optimal residence time intervals and the error can also be seen since the interval approximations and fixed-point roots correspond up to the 5^th^ decimal place. Therefore, simulating fixed-point optimization using interval techniques yielded a satisfactory approximation.
 
-**4.2.3 Applications to Foraging Model**
+##### 4.2.3 Applications to Foraging Model
 
  This section can be considered as conclusions to the research problem as well as the overall implications of IA to the simplistic analytic foraging model. The use of IA to simulate different parameter states into the system was successful since the percent uncertainties yielded interval optimal residence times. As a result, IA allows the ecologist to vary parameters of the model within certain limitations established by stability analysis and obtain a range of optimal residence times a forager might choose. The percent uncertainty limitations on parameter variation obtained from the stability analysis are high, which is good since it allows a large amount of model variability. However, we should keep in mind the stability analysis was made varying one variable at a time. Repeating the results from section 3.2.1, this time with percent uncertainties matching the fixed-point approximations, we obtain:
 
