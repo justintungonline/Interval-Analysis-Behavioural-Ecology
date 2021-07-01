@@ -6,6 +6,8 @@ This directory contains Matlab files for the report is below.
 
 Interval Analysis is a means of representing uncertainty by replacing single (fixed-point) values with intervals. In this project, interval analysis is applied to a foraging model in behavioural ecology. The model describes an individual foraging in a collection of continuously renewing resource patches. This model is used to determine the optimal residence time of the forager in a resource patch assuming the forager wants to maximize its rate of resource intake. Before applying interval analysis, fixed-point (non-interval) optimization will be done to serve as a basis. Certain parameters in the model will then be replaced with intervals and interval-based optimization conducted. A comparison of the interval and fixed-point results will be done as well as analysis of parameter intervals and their constraints, root approximations, and applications to the model.
 
+![Matlab function and 3 dimensional shape](media/README-2021-07-01-14-32-05.png)
+
 ## About
 
 Cornell University Computer Science (CS) 490 Independent Research Report by Justin Tung
